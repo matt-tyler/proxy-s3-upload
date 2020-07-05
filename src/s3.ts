@@ -1,6 +1,7 @@
 import axios, {AxiosRequestConfig} from 'axios'
 import {readFileSync} from 'fs'
 import {createHash} from 'crypto'
+import { setSecret } from "@actions/core";
 
 const addHeaders = (config: AxiosRequestConfig): AxiosRequestConfig => {
   const {headers} = config
@@ -32,7 +33,7 @@ export class S3Proxy {
     const interceptor = axios.interceptors.request.use(addHeaders)
 
     const {data: signedUrl} = await axios.post<string>(
-      `${this.endpoint}/presignedUrl`,
+      `${this.endpoint}/presigned`,
       {
         Bucket,
         Key,
@@ -41,6 +42,8 @@ export class S3Proxy {
         'Content-Type': 'application/zip'
       }
     )
+
+    setSecret(signedUrl)
 
     axios.interceptors.request.eject(interceptor)
 
