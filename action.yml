@@ -1,10 +1,19 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: proxy-s3-upload
+description: Upload package to S3
+author: Matt Tyer
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  endpoint:
+    description: proxy endpoint
+    required: true
+  bucket:
+    description: The name of the bucket to upload the file to
+    required: true
+  key:
+    description: The key of the uploaded file
+    required: true
+  file-name:
+    description: The file to be uploaded
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'

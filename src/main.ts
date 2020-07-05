@@ -1,19 +1,23 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import {S3Proxy} from './s3'
+
+/* istanbul ignore next */
+if (require.main === module) {
+  run()
+}
+
+module.exports = run
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    const endpoint = core.getInput('endpoint', {required: true})
+    const bucket = core.getInput('bucket', {required: true})
+    const key = core.getInput('key', {required: true})
+    const filename = core.getInput('filename', {required: true})
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+    const proxy = new S3Proxy(endpoint)
+    await proxy.UploadFile(bucket, key, filename)
   } catch (error) {
     core.setFailed(error.message)
   }
 }
-
-run()
