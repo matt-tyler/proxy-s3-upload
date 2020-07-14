@@ -12786,11 +12786,15 @@ const addHeaders = (config) => {
             .join("-")}`;
         headers[key] = process.env[k];
     }
+    let GITHUB_SHA = process.env["GITHUB_SHA"];
+    console.log(process.env["GITHUB_EVENT_NAME"]);
+    console.log(GITHUB_SHA);
     const { payload } = github_1.context;
-    headers["GITHUB_SHA"] =
-        process.env["GITHUB_EVENT_NAME"] === "pull_request"
-            ? payload.pull_request.base.sha
-            : process.env["GITHUB_SHA"];
+    if (process.env["GITHUB_EVENT_NAME"] === "pull_request") {
+        GITHUB_SHA = payload.pull_request.base.sha;
+        console.log(GITHUB_SHA);
+    }
+    headers["GITHUB_SHA"] = GITHUB_SHA;
     config.headers = headers;
     return config;
 };
