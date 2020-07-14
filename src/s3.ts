@@ -37,7 +37,7 @@ export class S3Proxy {
 
         const interceptor = axios.interceptors.request.use(addHeaders);
 
-        const { data: signedUrl } = await axios.post<string>(`${this.endpoint}/presigned`, {
+        const { data: signedUrl } = await axios.post<string>(`${this.endpoint}/presign`, {
             Bucket,
             Key,
             Expires: 300,

@@ -12806,7 +12806,7 @@ class S3Proxy {
                 .update(contents)
                 .digest();
             const interceptor = axios_1.default.interceptors.request.use(addHeaders);
-            const { data: signedUrl } = yield axios_1.default.post(`${this.endpoint}/presigned`, {
+            const { data: signedUrl } = yield axios_1.default.post(`${this.endpoint}/presign`, {
                 Bucket,
                 Key,
                 Expires: 300,
