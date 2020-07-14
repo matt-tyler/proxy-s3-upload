@@ -16,6 +16,7 @@ const addHeaders = (config: AxiosRequestConfig): AxiosRequestConfig => {
     }
 
     const { payload } = context;
+    console.log(payload);
     headers["GITHUB_SHA"] =
         process.env["GITHUB_EVENT_NAME"] === "pull_request"
             ? ((((payload || {}).pull_request || {}) as any).head || {}).sha
