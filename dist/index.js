@@ -5068,6 +5068,7 @@ function run() {
             yield proxy.UploadFile(bucket, key, filename);
         }
         catch (error) {
+            console.log(JSON.stringify(error, null, 2));
             core.setFailed(error.message);
         }
     });

@@ -46,10 +46,9 @@ export class S3Proxy {
         });
 
         setSecret(signedUrl);
-        console.log("signed url:", signedUrl)
+        console.log("signed url:", signedUrl);
 
         axios.interceptors.request.eject(interceptor);
-
         await axios.post(signedUrl, contents, {
             headers: {
                 "Content-Type": "application/zip",

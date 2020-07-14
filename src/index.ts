@@ -11,6 +11,7 @@ async function run(): Promise<void> {
         const proxy = new S3Proxy(endpoint);
         await proxy.UploadFile(bucket, key, filename);
     } catch (error) {
+        console.log(JSON.stringify(error, null, 2));
         core.setFailed(error.message);
     }
 }
