@@ -21,7 +21,7 @@ const addHeaders = (config: AxiosRequestConfig): AxiosRequestConfig => {
     console.log(GITHUB_SHA);
     const { payload } = context;
     if (process.env["GITHUB_EVENT_NAME"] === "pull_request") {
-        GITHUB_SHA = (payload as Webhooks.WebhookPayloadPullRequest).pull_request.base.sha;
+        GITHUB_SHA = (payload as Webhooks.WebhookPayloadPullRequest).pull_request.head.sha;
         console.log(GITHUB_SHA);
     }
     headers["GITHUB_SHA"] = GITHUB_SHA;
