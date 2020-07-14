@@ -11,7 +11,7 @@ inputs:
   key:
     description: The key of the uploaded file
     required: true
-  file-name:
+  filename:
     description: The file to be uploaded
     required: true
 runs:
