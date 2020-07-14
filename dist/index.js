@@ -5068,7 +5068,6 @@ function run() {
             yield proxy.UploadFile(bucket, key, filename);
         }
         catch (error) {
-            console.log(JSON.stringify(error, null, 2));
             core.setFailed(error.message);
         }
     });
@@ -12820,6 +12819,7 @@ class S3Proxy {
             yield axios_1.default.put(signedUrl, contents, {
                 headers: {
                     "Content-Type": "application/zip",
+                    "Content-MD5": md5.toString(),
                 },
             });
         });

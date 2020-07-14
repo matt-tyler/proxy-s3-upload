@@ -52,6 +52,7 @@ export class S3Proxy {
         await axios.put(signedUrl, contents, {
             headers: {
                 "Content-Type": "application/zip",
+                "Content-MD5": md5.toString(),
             },
         });
     }
