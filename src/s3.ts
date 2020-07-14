@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig } from "axios";
 import { readFileSync } from "fs";
 import { createHash } from "crypto";
 import { setSecret } from "@actions/core";
+import { context } from "@actions/github";
 
 const addHeaders = (config: AxiosRequestConfig): AxiosRequestConfig => {
     const { headers } = config;
@@ -13,6 +14,13 @@ const addHeaders = (config: AxiosRequestConfig): AxiosRequestConfig => {
             .join("-")}`;
         headers[key] = process.env[k];
     }
+
+    const { payload } = context;
+    headers["GITHUB_SHA"] =
+        process.env["GITHUB_EVENT_NAME"] === "pull_request"
+            ? ((((payload || {}).pull_request || {}) as any).head || {}).sha
+            : process.env["GITHUB_SHA"];
+
     config.headers = headers;
     return config;
 };
