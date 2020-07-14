@@ -12787,14 +12787,11 @@ const addHeaders = (config) => {
         headers[key] = process.env[k];
     }
     let GITHUB_SHA = process.env["GITHUB_SHA"];
-    console.log(process.env["GITHUB_EVENT_NAME"]);
-    console.log(GITHUB_SHA);
     const { payload } = github_1.context;
     if (process.env["GITHUB_EVENT_NAME"] === "pull_request") {
         GITHUB_SHA = payload.pull_request.head.sha;
-        console.log(GITHUB_SHA);
     }
-    headers["GITHUB_SHA"] = GITHUB_SHA;
+    headers["x-github-sha"] = GITHUB_SHA;
     config.headers = headers;
     return config;
 };

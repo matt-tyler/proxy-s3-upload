@@ -3,7 +3,7 @@ import { readFileSync } from "fs";
 import { createHash } from "crypto";
 import { setSecret } from "@actions/core";
 import { context } from "@actions/github";
-import Webhooks from '@octokit/webhooks'
+import Webhooks from "@octokit/webhooks";
 
 const addHeaders = (config: AxiosRequestConfig): AxiosRequestConfig => {
     const { headers } = config;
@@ -17,14 +17,11 @@ const addHeaders = (config: AxiosRequestConfig): AxiosRequestConfig => {
     }
 
     let GITHUB_SHA = process.env["GITHUB_SHA"];
-    console.log(process.env["GITHUB_EVENT_NAME"]);
-    console.log(GITHUB_SHA);
     const { payload } = context;
     if (process.env["GITHUB_EVENT_NAME"] === "pull_request") {
         GITHUB_SHA = (payload as Webhooks.WebhookPayloadPullRequest).pull_request.head.sha;
-        console.log(GITHUB_SHA);
     }
-    headers["GITHUB_SHA"] = GITHUB_SHA;
+    headers["x-github-sha"] = GITHUB_SHA;
     config.headers = headers;
     return config;
 };
