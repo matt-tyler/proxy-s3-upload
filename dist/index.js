@@ -12787,10 +12787,9 @@ const addHeaders = (config) => {
         headers[key] = process.env[k];
     }
     const { payload } = github_1.context;
-    console.log(JSON.stringify(payload, null, 2));
     headers["GITHUB_SHA"] =
         process.env["GITHUB_EVENT_NAME"] === "pull_request"
-            ? (((payload || {}).pull_request || {}).head || {}).sha
+            ? payload.pull_request.base.sha
             : process.env["GITHUB_SHA"];
     config.headers = headers;
     return config;
