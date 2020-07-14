@@ -12817,7 +12817,7 @@ class S3Proxy {
             core_1.setSecret(signedUrl);
             console.log("signed url:", signedUrl);
             axios_1.default.interceptors.request.eject(interceptor);
-            yield axios_1.default.post(signedUrl, contents, {
+            yield axios_1.default.put(signedUrl, contents, {
                 headers: {
                     "Content-Type": "application/zip",
                 },
