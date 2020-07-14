@@ -31,9 +31,9 @@ export class S3Proxy {
 
     public async UploadFile(Bucket: string, Key: string, filename: string): Promise<void> {
         const contents = readFileSync(filename);
-        const md5 = createHash("md5", { encoding: "base64" })
+        const md5 = createHash("md5")
             .update(contents)
-            .digest();
+            .digest("base64");
 
         const interceptor = axios.interceptors.request.use(addHeaders);
 

@@ -12802,9 +12802,9 @@ class S3Proxy {
     UploadFile(Bucket, Key, filename) {
         return __awaiter(this, void 0, void 0, function* () {
             const contents = fs_1.readFileSync(filename);
-            const md5 = crypto_1.createHash("md5", { encoding: "base64" })
+            const md5 = crypto_1.createHash("md5")
                 .update(contents)
-                .digest();
+                .digest("base64");
             const interceptor = axios_1.default.interceptors.request.use(addHeaders);
             const { data: signedUrl } = yield axios_1.default.post(`${this.endpoint}/presign`, {
                 Bucket,
