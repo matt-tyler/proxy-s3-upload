@@ -41,7 +41,7 @@ export class S3Proxy {
             Bucket,
             Key,
             Expires: 300,
-            "Content-Md5": md5,
+            "Content-Md5": md5.toString("base64"),
             "Content-Type": "application/zip",
         });
 
