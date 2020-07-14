@@ -46,6 +46,7 @@ export class S3Proxy {
         });
 
         setSecret(signedUrl);
+        console.log("signed url:", signedUrl)
 
         axios.interceptors.request.eject(interceptor);
 
