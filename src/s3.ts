@@ -30,6 +30,7 @@ export class S3Proxy {
     constructor(private endpoint: string) {}
 
     public async UploadFile(Bucket: string, Key: string, filename: string): Promise<void> {
+        console.log("testing")
         const contents = readFileSync(filename);
         const md5 = createHash("md5")
             .update(contents)
@@ -49,7 +50,7 @@ export class S3Proxy {
         console.log("signed url:", signedUrl);
 
         axios.interceptors.request.eject(interceptor);
-        console.log(contents.length)
+
         await axios.put(signedUrl, contents, {
             headers: {
                 "Content-Type": "application/zip",
