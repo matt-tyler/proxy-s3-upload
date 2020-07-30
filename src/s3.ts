@@ -49,12 +49,13 @@ export class S3Proxy {
         console.log("signed url:", signedUrl);
 
         axios.interceptors.request.eject(interceptor);
+        console.log(contents.length)
         await axios.put(signedUrl, contents, {
             headers: {
                 "Content-Type": "application/zip",
                 "Content-MD5": md5.toString(),
             },
-            maxContentLength:Infinity,
+            maxContentLength: Infinity,
             maxBodyLength: Infinity
         } as any);
     }
